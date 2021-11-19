@@ -30,7 +30,7 @@ public class AppManager {
         js = (JavascriptExecutor) driver;
 
         loginHelper = new LoginHelper(this, accountData);
-        postHelper = new PostHelper(this, post);
+        postHelper = new PostHelper(this, post, js);
     }
 
     public WebDriver getDriver() {

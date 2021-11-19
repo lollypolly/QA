@@ -5,15 +5,12 @@ import org.junit.Before;
 import ru.itlab.qa.helpers.AppManager;
 
 public class TestBase {
-    private AppManager appManager;
-
-    @Before
-    public void setUp(){
+    private static AppManager appManager;
+    static {
         appManager = new AppManager();
     }
 
-    @After
-    public void tearDown(){
+    public static void tearDown(){
         appManager.stop();
     }
 
@@ -23,6 +20,10 @@ public class TestBase {
 
     public void createNewPost(){
         appManager.getPostHelper().newPost();
+    }
+
+    public void deleteLastPost(){
+        appManager.getPostHelper().deleteLastPost();
     }
 }
 

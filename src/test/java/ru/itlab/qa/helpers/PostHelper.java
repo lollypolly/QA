@@ -2,6 +2,7 @@ package ru.itlab.qa.helpers;
 
 import lombok.SneakyThrows;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -10,10 +11,12 @@ import ru.itlab.qa.models.Post;
 public class PostHelper extends HelperBase {
     private AppManager appManager;
     private Post post;
+    private JavascriptExecutor js;
 
-    public PostHelper(AppManager appManager, Post post) {
+    public PostHelper(AppManager appManager, Post post, JavascriptExecutor js) {
         this.appManager = appManager;
         this.post = post;
+        this.js = js;
         driver = appManager.getDriver();
     }
 
@@ -44,5 +47,35 @@ public class PostHelper extends HelperBase {
         }
         driver.findElement(By.cssSelector(".RCK > .tBJ")).click();
         Thread.sleep(7000);
+    }
+
+    public void deleteLastPost(){
+        driver.get("https://www.pinterest.ru/");
+        {
+            WebElement element = driver.findElement(By.cssSelector(".Jea > svg"));
+            Actions builder = new Actions(driver);
+            builder.moveToElement(element).perform();
+        }
+        driver.findElement(By.cssSelector(".Jea > svg")).click();
+        {
+            WebElement element = driver.findElement(By.tagName("body"));
+            Actions builder = new Actions(driver);
+            builder.moveToElement(element, 0, 0).perform();
+        }
+        js.executeScript("window.scrollTo(0,0)");
+        {
+            WebElement element = driver.findElement(By.cssSelector(".xuA > .zI7 > .RCK > .tBJ"));
+            Actions builder = new Actions(driver);
+            builder.moveToElement(element).perform();
+        }
+        {
+            WebElement element = driver.findElement(By.cssSelector(".xuA > .gjz > .sLG > .tBJ"));
+            Actions builder = new Actions(driver);
+            builder.moveToElement(element).perform();
+        }
+        driver.findElement(By.cssSelector(".NSs path")).click();
+        js.executeScript("window.scrollTo(0,0)");
+        driver.findElement(By.cssSelector(".X6t > .lH1")).click();
+        driver.findElement(By.cssSelector(".Il7 > .tBJ")).click();
     }
 }
