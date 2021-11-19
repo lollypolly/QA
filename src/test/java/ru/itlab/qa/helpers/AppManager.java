@@ -23,8 +23,8 @@ public class AppManager {
         driver = new ChromeDriver();
         js = (JavascriptExecutor) driver;
         accountData = new AccountData();
-        accountData.setEmail("polik_dlya_spama@mail.ru");
-        accountData.setPassword("1234spam");
+        accountData.setEmail("sport_register@internet.ru");
+        accountData.setPassword("1234qqqq");
         post = new Post();
         post.setName("testGG2");
         WebDriverManager.chromedriver().setup();
