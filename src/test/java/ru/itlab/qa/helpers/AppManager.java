@@ -26,9 +26,8 @@ public class AppManager {
         accountData.setEmail("sport_register@internet.ru");
         accountData.setPassword("1234qqqq");
         post = new Post();
-        post.setName("test3");
+        post.setName("testLO");
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
         js = (JavascriptExecutor) driver;
 
         loginHelper = new LoginHelper(this, accountData);

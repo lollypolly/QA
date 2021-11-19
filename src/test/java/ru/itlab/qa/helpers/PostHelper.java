@@ -1,13 +1,15 @@
 package ru.itlab.qa.helpers;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.itlab.qa.models.Post;
+
+import java.util.List;
 
 @Slf4j
 public class PostHelper extends HelperBase {
@@ -24,10 +26,7 @@ public class PostHelper extends HelperBase {
 
     @SneakyThrows
     public void newPost() {
-        Thread.sleep(4000);
-        //!-- asset ------!
-        System.out.println(isPostExist());
-        //!-- end asset ------!
+
         Thread.sleep(5000);
         driver.findElement(By.cssSelector(".dyH:nth-child(2)")).click();
         Thread.sleep(5000);
@@ -52,11 +51,15 @@ public class PostHelper extends HelperBase {
             builder.moveToElement(element).release().perform();
         }
         driver.findElement(By.cssSelector(".RCK > .tBJ")).click();
+        Thread.sleep(4000);
+        //!-- asset ------!
+        System.out.println(isPostExist());
+        //!-- end asset ------!
         Thread.sleep(7000);
     }
 
     @SneakyThrows
-    public void deleteLastPost(){
+    public void deleteLastPost() {
         driver.get("https://www.pinterest.ru/");
         {
             WebElement element = driver.findElement(By.cssSelector(".Jea > svg"));
@@ -93,19 +96,26 @@ public class PostHelper extends HelperBase {
     }
 
     @SneakyThrows
-    public boolean isPostExist(){
+    public boolean isPostExist() {
+        WebDriverWait webDriverWait = new WebDriverWait(driver, 20);
         driver.get("https://www.pinterest.ru/sport_register/_saved/");
-        Thread.sleep(2000);
+        Thread.sleep(4000);
         log.info("Trying to find POST");
-        boolean h = false;
-        short i = 1;
-        while (!h || i<5) {
+        // с 2ух потому что первый элемент какашка
+        short i = 2;
+        while (i < 6) {
             log.info("i = " + i);
-            String str = driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[2]/div/div/div/div[3]/div/div[2]/div/div[1]/div/div/div/div["+i+"]/div/a/div/div/div/div[2]/div[1]")).getText();
+            By divWithText = By.xpath("/html/body/div[1]/div[1]/div[2]/div/div/div/div[3]/div/div[2]/div/div[1]/div/div/div/div["+i+"]/div/a/div/div/div/div[2]/div[1]/h2");
+
+            webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(divWithText));
+
+            String str = driver.findElement(divWithText).getText();
+            log.info(str);
             i++;
-            if(str.contains(post.getName())) return true;
+            Thread.sleep(500);
+            if (str.contains(post.getName())) return true;
 
         }
-        return h;
+        return false;
     }
 }
