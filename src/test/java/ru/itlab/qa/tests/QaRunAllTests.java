@@ -1,14 +1,14 @@
 package ru.itlab.qa.tests;
 
 import lombok.SneakyThrows;
+import org.junit.AfterClass;
 import org.junit.Test;
-import org.junit.jupiter.api.AfterAll;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class QaRunAllTests extends TestBase {
-    @AfterAll
-    static void end(){
+    @AfterClass
+    public static void end(){
         tearDown();
     }
 

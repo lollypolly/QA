@@ -49,6 +49,7 @@ public class PostHelper extends HelperBase {
         Thread.sleep(7000);
     }
 
+    @SneakyThrows
     public void deleteLastPost(){
         driver.get("https://www.pinterest.ru/");
         {
@@ -57,25 +58,31 @@ public class PostHelper extends HelperBase {
             builder.moveToElement(element).perform();
         }
         driver.findElement(By.cssSelector(".Jea > svg")).click();
+        Thread.sleep(2000);
         {
             WebElement element = driver.findElement(By.tagName("body"));
             Actions builder = new Actions(driver);
             builder.moveToElement(element, 0, 0).perform();
         }
         js.executeScript("window.scrollTo(0,0)");
+        Thread.sleep(2000);
         {
             WebElement element = driver.findElement(By.cssSelector(".xuA > .zI7 > .RCK > .tBJ"));
             Actions builder = new Actions(driver);
             builder.moveToElement(element).perform();
         }
+        Thread.sleep(2000);
         {
             WebElement element = driver.findElement(By.cssSelector(".xuA > .gjz > .sLG > .tBJ"));
             Actions builder = new Actions(driver);
             builder.moveToElement(element).perform();
         }
+        Thread.sleep(2000);
         driver.findElement(By.cssSelector(".NSs path")).click();
         js.executeScript("window.scrollTo(0,0)");
-        driver.findElement(By.cssSelector(".X6t > .lH1")).click();
-        driver.findElement(By.cssSelector(".Il7 > .tBJ")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("/html/body/div[4]/div/div/div/div[2]/div/div[2]/div/form/div/div[9]/div/div[2]")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("/html/body/div[4]/div/div/div/div[2]/div/div[3]/div/div/div[2]/button")).click();
     }
 }

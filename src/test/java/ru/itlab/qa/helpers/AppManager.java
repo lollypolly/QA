@@ -1,12 +1,14 @@
 package ru.itlab.qa.helpers;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import ru.itlab.qa.models.AccountData;
 import ru.itlab.qa.models.Post;
 
+@Slf4j
 public class AppManager {
     public WebDriver driver;
     public JavascriptExecutor js;
@@ -24,7 +26,7 @@ public class AppManager {
         accountData.setEmail("polik_dlya_spama@mail.ru");
         accountData.setPassword("1234spam");
         post = new Post();
-        post.setName("test3");
+        post.setName("testGG2");
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         js = (JavascriptExecutor) driver;
