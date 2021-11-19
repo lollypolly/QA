@@ -1,6 +1,7 @@
 package ru.itlab.qa.helpers;
 
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -8,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import ru.itlab.qa.models.Post;
 
+@Slf4j
 public class PostHelper extends HelperBase {
     private AppManager appManager;
     private Post post;
@@ -22,6 +24,10 @@ public class PostHelper extends HelperBase {
 
     @SneakyThrows
     public void newPost() {
+        Thread.sleep(4000);
+        //!-- asset ------!
+        System.out.println(isPostExist());
+        //!-- end asset ------!
         Thread.sleep(5000);
         driver.findElement(By.cssSelector(".dyH:nth-child(2)")).click();
         Thread.sleep(5000);
@@ -84,5 +90,22 @@ public class PostHelper extends HelperBase {
         driver.findElement(By.xpath("/html/body/div[4]/div/div/div/div[2]/div/div[2]/div/form/div/div[9]/div/div[2]")).click();
         Thread.sleep(2000);
         driver.findElement(By.xpath("/html/body/div[4]/div/div/div/div[2]/div/div[3]/div/div/div[2]/button")).click();
+    }
+
+    @SneakyThrows
+    public boolean isPostExist(){
+        driver.get("https://www.pinterest.ru/sport_register/_saved/");
+        Thread.sleep(2000);
+        log.info("Trying to find POST");
+        boolean h = false;
+        short i = 1;
+        while (!h || i<5) {
+            log.info("i = " + i);
+            String str = driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[2]/div/div/div/div[3]/div/div[2]/div/div[1]/div/div/div/div["+i+"]/div/a/div/div/div/div[2]/div[1]")).getText();
+            i++;
+            if(str.contains(post.getName())) return true;
+
+        }
+        return h;
     }
 }
